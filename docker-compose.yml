@@ -1,0 +1,23 @@
+services:
+  kali-htb:
+    image: kalilinux/kali-rolling
+    container_name: kali-htb
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - ./htb_machines:/root/htb_machines
+      - ./entrypoint.sh:/entrypoint.sh
+    environment:
+      - TZ=Europe/Madrid
+    entrypoint: ./entrypoint.sh
+    command: /bin/bash
+    restart: unless-stopped
+    networks:
+      - kali_net
+
+networks:
+  kali_net:
+    driver: bridge
