@@ -16,7 +16,7 @@ if [ ! -f /root/.first_run ]; then
     apt update
     apt install -y \
         git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz \
-        iputils-ping git nmap cmseek jq gobuster whatweb seclists \
+        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat \
         nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra medusa
     echo -n
     echo "🧩 Packages installed"
@@ -25,13 +25,12 @@ if [ ! -f /root/.first_run ]; then
     echo "cd /root/htb_machines/" >> /root/.bashrc
     echo 'PS1='\''\[\e]0;\u@\h: \w\a\]\[\033[38;5;33m\]┌─(\[\033[38;5;148m\]\u㉿HTB\[\033[38;5;33m\])-[\[\033[1;37m\]\w\[\033[38;5;33m\]]\n\[\033[38;5;33m\]└─▣ \[\033[0m\]'\''' >> /root/.bashrc
 
-
-else
-    # Connect to openvpn
-    echo "Aquí conectaría a openvpn"
 fi
 
 echo "Finalizado"
+
+echo "🧩 Conecting HTB VPN..."
+openvpn --config /root/htb_machines/*.ovpn &
 
 # Execute main command (bash by default)
 exec "$@"
