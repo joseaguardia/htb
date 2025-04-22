@@ -14,9 +14,8 @@ if [ ! -f /root/.first_run ]; then
     export DEBIAN_FRONTEND=noninteractive
 
     apt update
-    apt install -y \
-        git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz \
-        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat \
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz \
+        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools \
         nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra medusa
     echo -n
     echo "🧩 Packages installed"
@@ -24,6 +23,7 @@ if [ ! -f /root/.first_run ]; then
 
     echo "cd /root/htb_machines/" >> /root/.bashrc
     echo 'PS1='\''\[\e]0;\u@\h: \w\a\]\[\033[38;5;33m\]┌─(\[\033[38;5;148m\]\u㉿HTB\[\033[38;5;33m\])-[\[\033[1;37m\]\w\[\033[38;5;33m\]]\n\[\033[38;5;33m\]└─▣ \[\033[0m\]'\''' >> /root/.bashrc
+    echo "clear" >> /root/.bashrc
 
 fi
 

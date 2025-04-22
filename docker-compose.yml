@@ -11,8 +11,9 @@ services:
       - /dev/net/tun:/dev/net/tun
     volumes:
       - ./htb_machines:/root/htb_machines
+      - ./.bash_history:/root/.bash_history
       - ./entrypoint.sh:/entrypoint.sh
-      - /etc/hosts:/etc/hosts:ro
+      
     environment:
       - TZ=Europe/Madrid
     entrypoint: ./entrypoint.sh
