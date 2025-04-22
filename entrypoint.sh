@@ -14,9 +14,9 @@ if [ ! -f /root/.first_run ]; then
     export DEBIAN_FRONTEND=noninteractive
 
     apt update
-    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz \
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap \
         iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools \
-        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra medusa
+        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra medusa dotdotpwn
     echo -n
     echo "🧩 Packages installed"
     echo -n
