@@ -12,15 +12,15 @@ if [ ! -f /root/.first_run ]; then
     
     echo "🧩 Updating and installing packages..."
     export DEBIAN_FRONTEND=noninteractive
-
     apt update
-    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils \
-        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp \
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack \
+        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john \
         nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential
     echo -n
     echo "🧩 All basic packages are installed"
     echo -n
 
+    echo "🧩 Unzipping rockyou"
     cd /usr/share/seclists/Passwords/Leaked-Databases/ && gunzip rockyou.txt.tar.gz && tar xvf rockyou.txt.tar
     
     echo -n
