@@ -13,9 +13,9 @@ if [ ! -f /root/.first_run ]; then
     echo "🧩 Updating and installing packages..."
     export DEBIAN_FRONTEND=noninteractive
     apt update
-    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack \
-        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john \
-        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid \
+        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv \
+        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl
     echo -n
     echo "🧩 All basic packages are installed"
     echo -n
@@ -40,6 +40,11 @@ if [ ! -f /root/.first_run ]; then
     # Functions to add icons to the prompt
     echo "vpn_htb() { ip link show tun0 &>/dev/null && echo '🔒' || echo ''; }" >> ~/.bashrc
     echo "socat_tcp_80() { pgrep -f 'socat TCP-LISTEN:80' > /dev/null && echo '🚀' || echo ''; }" >> ~/.bashrc
+
+    echo -n
+    echo "🧩 Upgrade Kali"
+    apt update && apt upgrade -y
+    echo -n
 fi
 
 echo "🧩 Conecting HTB openVPN..."
