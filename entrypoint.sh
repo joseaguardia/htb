@@ -24,20 +24,24 @@ if [ ! -f /root/.first_run ]; then
     cd /usr/share/seclists/Passwords/Leaked-Databases/ && gunzip rockyou.txt.tar.gz && tar xvf rockyou.txt.tar
     
     echo -n
-    echo "🧩 Set up prompt, alias and variables"
+    echo "🧩 Set up prompt, alias, variables and functions"
     echo -n
     echo "cd /root/htb_machines/" >> /root/.bashrc
+    
     # Prompt
     echo 'PS1='\''\[\e]0;\u@\h: \w\a\]\[\033[38;5;33m\]┌─(\[\033[38;5;148m\]\u㉿HTB\[\033[38;5;33m\])-[\[\033[1;37m\]\w\[\033[38;5;33m\]]$(vpn_htb)$(socat_tcp_80)\n\[\033[38;5;33m\]└─▣ \[\033[0m\]'\''' >> /root/.bashrc
     echo "clear" >> /root/.bashrc
+    
     # Variables
     echo 'export wordlist_large="/usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt"' >> /root/.bashrc
     echo 'export wordlist="/usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt"' >> /root/.bashrc
     echo 'export rockyou="/usr/share/seclists/Passwords/Leaked-Databases/rockyou.txt"' >> /root/.bashrc
     echo 'PROMPT_COMMAND="history -a; history -n"' >> /root/.bashrc
+    
     # Aliases
     echo 'alias vpnOff="pkill -f openvpn"' >> /root/.bashrc
     echo 'alias vpnOn="openvpn --config /root/htb_machines/htb.ovpn --daemon"' >> /root/.bashrc
+    
     # Functions to add icons to the prompt
     echo "vpn_htb() { ip link show tun0 &>/dev/null && echo '🔒' || echo ''; }" >> ~/.bashrc
     echo "socat_tcp_80() { pgrep -f 'socat TCP-LISTEN:80' > /dev/null && echo '🚀' || echo ''; }" >> ~/.bashrc
@@ -52,5 +56,5 @@ fi
 # echo "🧩 Conecting HTB openVPN..."
 # openvpn --config /root/htb_machines/*.ovpn --daemon
 
-# Execute main command (bash by default)
+
 exec "$@"
