@@ -15,7 +15,7 @@ if [ ! -f /root/.first_run ]; then
     apt update
     apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid \
         iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv \
-        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl
+        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl hexedit file
     echo -n
     echo "🧩 All basic packages are installed"
     echo -n
@@ -41,6 +41,7 @@ if [ ! -f /root/.first_run ]; then
     # Functions to add icons to the prompt
     echo "vpn_htb() { ip link show tun0 &>/dev/null && echo '🔒' || echo ''; }" >> ~/.bashrc
     echo "socat_tcp_80() { pgrep -f 'socat TCP-LISTEN:80' > /dev/null && echo '🚀' || echo ''; }" >> ~/.bashrc
+    echo "urlencode() { python3 -c \"import urllib.parse, sys; print(urllib.parse.quote(' '.join(sys.argv[1:])))\" \"\$@\"; }" >> ~/.bashrc
 
     echo -n
     echo "🧩 Upgrade Kali"
