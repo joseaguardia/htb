@@ -13,8 +13,8 @@ if [ ! -f /root/.first_run ]; then
     echo "🧩 Updating and installing packages..."
     export DEBIAN_FRONTEND=noninteractive
     apt update
-    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid \
-        iputils-ping git nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv \
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid strace \
+        iputils-ping nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv ltrace \
         nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl hexedit file
     echo -n
     echo "🧩 All basic packages are installed"
@@ -34,7 +34,7 @@ if [ ! -f /root/.first_run ]; then
     
     # Variables
     echo 'export wordlist_large="/usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt"' >> /root/.bashrc
-    echo 'export wordlist="/usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt"' >> /root/.bashrc
+    echo 'export wordlist="/usr/share/seclists/Discovery/Web-Content/big.txt"' >> /root/.bashrc
     echo 'export rockyou="/usr/share/seclists/Passwords/Leaked-Databases/rockyou.txt"' >> /root/.bashrc
     echo 'PROMPT_COMMAND="history -a; history -n"' >> /root/.bashrc
     
@@ -45,7 +45,7 @@ if [ ! -f /root/.first_run ]; then
     # Functions to add icons to the prompt
     echo "vpn_htb() { ip link show tun0 &>/dev/null && echo '🔒' || echo ''; }" >> ~/.bashrc
     echo "socat_tcp_80() { pgrep -f 'socat TCP-LISTEN:80' > /dev/null && echo '🚀' || echo ''; }" >> ~/.bashrc
-    echo "my_htb_ip() { ip -4 addr show tun0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'; }" >> ~/.bashrc
+    echo "my_htb_ip() { [[ -d /sys/class/net/tun0 ]] && ip -4 addr show tun0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' || echo 'HTB'; }" >> ~/.bashrc
     echo "urlencode() { python3 -c \"import urllib.parse, sys; print(urllib.parse.quote(' '.join(sys.argv[1:])))\" \"\$@\"; }" >> ~/.bashrc
 
     echo -n
