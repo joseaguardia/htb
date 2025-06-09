@@ -107,7 +107,7 @@ if command -v sudo >/dev/null 2>&1; then
         echo -e "${GREEN}sudo version $SUDO_VERS: CVE-2013-1775${NOCOL}"
     fi
 
-    if [[ "$SUDO_OUTPUT" ~= "required" ]]; then
+    if [[ "$SUDO_OUTPUT" =~ "required" ]]; then
         echo -e "${BLUE}sudo command failed: a password is required${NOCOL}"
     else
       if echo "$SUDO_OUTPUT" | grep -qi "sorry"; then
