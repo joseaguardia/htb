@@ -16,9 +16,9 @@ GTFOBINSSUID="aa-exec,ab,agetty,alpine,ar,arj,arp,as,ascii-xfr,ash,aspell,atobm,
 
 
 
-echo -e "${BLUE}================================================================="
+echo -e "${BLUE}=================================================================${NOCOL}"
 echo -e "${MAGENTA}          SPARTA: Shell Privileges And Root Total Access${NOCOL}"
-echo -e "=================================================================${NOCOL}"
+echo -e "${BLUE}=================================================================${NOCOL}"
 
 echo
 echo
@@ -107,21 +107,24 @@ if command -v sudo >/dev/null 2>&1; then
         echo -e "${GREEN}sudo version $SUDO_VERS: CVE-2013-1775${NOCOL}"
     fi
 
-    if echo "$SUDO_OUTPUT" | grep -qi "sorry"; then
-        echo "No sudoers privileges"
-        exit 1
-    fi
+    if [ $SUDO_OUTPUT ~= "required" ]; then
+        echo -e "${BLUE}sudo command failed: a password is required${NOCOL}"
+    else
+      if echo "$SUDO_OUTPUT" | grep -qi "sorry"; then
+          echo "No sudoers privileges"
+          exit 1
+      fi
 
-    if echo -e "$SUDO_OUTPUT" | grep -qi "may run"; then
-        echo -e "$OK ${GREEN}User $(whoami) may ran some files as sudo: ${NOCOL}"
-        echo -e "${GREEN}$SUDO_OUTPUT" | grep -i "may run the following" -A10 | tail -n +2
-        echo -e "${NOCOL}"
-    fi
+      if echo -e "$SUDO_OUTPUT" | grep -qi "may run"; then
+          echo -e "$OK ${GREEN}User $(whoami) may ran some files as sudo: ${NOCOL}"
+          echo -e "${GREEN}$SUDO_OUTPUT" | grep -i "may run the following" -A10 | tail -n +2
+          echo -e "${NOCOL}"
+      fi
 
-    if echo "$SUDO_OUTPUT" | grep -q "ENV BASH_ENV"; then
-        echo -e "${GREEN}ENV BASH_ENV enabled${NOCOL}"
+      if echo "$SUDO_OUTPUT" | grep -q "ENV BASH_ENV"; then
+          echo -e "${GREEN}ENV BASH_ENV enabled${NOCOL}"
+      fi
     fi
-
 else
     echo -e "${BLUE}sudo is not installed${NOCOL}"
 fi
@@ -174,7 +177,7 @@ echo -e "${BLUE}Users with shell${NOCOL}"
 USERLIST=$(awk -F: '$3 == 0 || ($3 >= 1000 && $3 <= 2000) {print $1}' /etc/passwd)
 ACTUALUSER=$(whoami)
 for user in $USERLIST; do
-if [ "$user" == "$ACTUALUSER" ]; then
+if ! [ "$user" == "$ACTUALUSER" ]; then
 	echo -e "${GREEN}$(grep $user /etc/passwd)${NOCOL}"
 else
   echo -e "(me) $(grep $user /etc/passwd)"
@@ -210,7 +213,7 @@ find / -writable -type f 2>/dev/null | grep -vE "^/proc|~|^/dev"
 echo -e "${NOCOL}"
 
 echo -e "${BLUE}Directories in PATH:${NOCOL}"
-echo $PATH | sed 's/:/\n/'g | xargs ls -ld
+echo $PATH | sed 's/:/\n/'g | xargs ls -ld 2>/dev/null
 
 
 
@@ -304,6 +307,23 @@ if command -v systemctl >/dev/null 2>&1; then
 else
     echo "systemctl not found"
 fi
+
+echo
+echo
+echo -e "${MAGENTA}─────────────────────────────"
+echo -e "🧩 PROCESS"
+echo -e "─────────────────────────────${NOCOL}"
+echo
+ps -eo user:20,cmd --no-headers | while read -r user cmd_rest; do
+    if [ "$user" = "root" ]; then 
+        echo -e "${GREEN}[$user] --> $cmd_rest${NOCOL}"
+    elif [ "$user" = "$(whoami)" ]; then 
+        echo -e "${BLUE}[$user] --> $cmd_rest${NOCOL}"
+    else 
+        echo "$[user] --> $cmd_rest"
+    fi
+done
+
 
 echo
 echo
