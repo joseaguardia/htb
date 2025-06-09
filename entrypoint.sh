@@ -13,9 +13,9 @@ if [ ! -f /root/.first_run ]; then
     echo "🧩 Updating and installing packages..."
     export DEBIAN_FRONTEND=noninteractive
     apt update
-    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid strace \
-        iputils-ping nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv ltrace \
-        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl hexedit file
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid strace wpscan\
+        iputils-ping nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv ltrace ftp \
+        nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl hexedit file cupp
     echo -n
     echo "🧩 All basic packages are installed"
     echo -n
