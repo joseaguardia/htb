@@ -16,6 +16,8 @@ if [ ! -f /root/.first_run ]; then
     apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid strace wpscan\
         iputils-ping nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv ltrace ftp \
         nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl hexedit file cupp
+    nmap --script-updatedb
+    wpscan --update
     echo -n
     echo "🧩 All basic packages are installed"
     echo -n
