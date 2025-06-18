@@ -13,9 +13,16 @@ if [ ! -f /root/.first_run ]; then
     echo "🧩 Updating and installing packages..."
     export DEBIAN_FRONTEND=noninteractive
     apt update
-    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid strace wpscan\
-        iputils-ping nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite john python3.13-venv ltrace ftp \
+    apt install -y git wget vim jq curl procps netcat-openbsd iproute2 telnet wfuzz sqlmap binutils httrack python3-pip hashid strace wpscan \
+        iputils-ping nmap cmseek jq gobuster whatweb seclists socat python3-setuptools tcpdump snmp sqlite3 john python3.13-venv ltrace ftp \
         nikto openvpn bind9-dnsutils vim bsdmainutils exploitdb hydra dotdotpwn exiftool html2text build-essential cewl hexedit file cupp
+    #TGPT
+    cd /opt && git clone https://github.com/aandrew-me/tgpt.git
+    chmod +x /opt/tgpt/install && /opt/tgpt/install
+    echo 'alias gemini="/usr/local/bin/tgpt --provider gemini"' >> /root/.bashrc
+    echo 'alias gemini-code="/usr/local/bin/tgpt --code --provider gemini"' >> /root/.bashrc
+
+    cd 
     nmap --script-updatedb
     wpscan --update
     echo -n

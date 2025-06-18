@@ -15,6 +15,8 @@ services:
       - ./entrypoint.sh:/entrypoint.sh     
     environment:
       - TZ=Europe/Madrid
+    env_file:
+      - .env
     entrypoint: ./entrypoint.sh
     command: /bin/bash
     restart: unless-stopped

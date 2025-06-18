@@ -252,11 +252,7 @@ echo -e "${MAGENTA}────────────────────�
 echo -e "🧩 INFORMATION LEAKEAGE"
 echo -e "─────────────────────────────${NOCOL}"
 echo
-echo -e "${BLUE}Files with 'password' string:${NOCOL}"
-for ruta in /tmp /etc /var/log /opt /var/tmp; do
-	grep -Ril "password" $ruta 2>/dev/null | grep -v "^/etc/alternatives\|^/etc/pam.d"
-done
-echo
+
 
 echo -e "${BLUE}Environment:${NOCOL}"
 env 2>/dev/null | grep -iE "pass|key|token|secret|cred|auth|login|email|api|db|ssh|ftp" | grep -v "^SSH_AUTH_SOCK\|^SSH_AGENT_PID\|^SSH_CLIENT\|^SSH_CONNECTION\|^SSH_TTY\|^HOME\|^USER\|^LOGNAME\|^PATH\|^PWD"
@@ -272,12 +268,21 @@ echo
 
 echo -e "${BLUE}.htpasswd files:${NOCOL}"
 find / -iname "*htpasswd*" -readable 2>/dev/null
+echo
 
 echo -e "${BLUE}Searching for .git directories:${NOCOL}"
 find / -name .git -type d 2>/dev/null
+echo
 
+echo -e "${BLUE}Alias:${NOCOL}"
+alias
+echo
 
-
+echo -e "${BLUE}Files with 'password' string:${NOCOL}"
+for ruta in /tmp /etc /var/log /opt /var/tmp; do
+	grep -Ril "password" $ruta 2>/dev/null | grep -v "^/etc/alternatives\|^/etc/pam.d"
+done
+echo
 
 
 
