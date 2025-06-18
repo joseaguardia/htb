@@ -215,6 +215,13 @@ echo -e "${NOCOL}"
 echo -e "${BLUE}Directories in PATH:${NOCOL}"
 echo $PATH | sed 's/:/\n/'g | xargs ls -ld 2>/dev/null
 
+echo -e "${BLUE}Last 10 files by root:${NOCOL}"
+find /var /etc /root /usr/bin -user root -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail 2>/dev/null
+echo
+
+echo -e "${BLUE}Last 10 files any user:${NOCOL}"
+find /var /etc /root /usr/bin -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail 2>/dev/null
+echo
 
 
 echo
@@ -249,7 +256,7 @@ fi
 echo
 echo
 echo -e "${MAGENTA}─────────────────────────────"
-echo -e "🧩 INFORMATION LEAKEAGE"
+echo -e "🧩 INFORMATION LEAKAGE"
 echo -e "─────────────────────────────${NOCOL}"
 echo
 
@@ -258,8 +265,8 @@ echo -e "${BLUE}Environment:${NOCOL}"
 env 2>/dev/null | grep -iE "pass|key|token|secret|cred|auth|login|email|api|db|ssh|ftp" | grep -v "^SSH_AUTH_SOCK\|^SSH_AGENT_PID\|^SSH_CLIENT\|^SSH_CONNECTION\|^SSH_TTY\|^HOME\|^USER\|^LOGNAME\|^PATH\|^PWD"
 echo
 
-echo -e "${BLUE}History:${NOCOL}"
-history | head -n 10
+echo -e "${BLUE}History (10 oldest):${NOCOL}"
+head -n 10 ~/.bash_history
 echo
 
 echo -e "${BLUE}/var/mail files:${NOCOL}"
